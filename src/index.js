@@ -1,5 +1,10 @@
 const express = require("express");
 const app = express();
+
+//Dung cors de web khong bi chan
+const cors = require("cors");
+app.use(cors())
+
 app.use(express.json());
 //Bien moi truong env
 const dotenv = require("dotenv");

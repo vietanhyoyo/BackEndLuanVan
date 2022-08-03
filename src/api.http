@@ -1,10 +1,11 @@
 GET http://localhost:5000/home
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJpYXQiOjE2NTg4MTUyNjAsImV4cCI6MTY1ODgxNTMyMH0._Ts1CrZzBYgxZo30QRv3unoLiBAlXGN8VC2u8RfOfqc
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJpYXQiOjE2NTk0MjI1MjcsImV4cCI6MTY1OTQyMjU4N30.I0a9FrcVNm1ocvkJVYZOaZ8VYD8UufAqf1lOq2hmaz0
 
 ###
 POST http://localhost:5000/author/login
 Content-Type: application/json
 
 {
-    "username": "vanh"
+    "username": "vanh",
+    "password": "123456"
 }
