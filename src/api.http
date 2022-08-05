@@ -1,5 +1,5 @@
 GET http://localhost:5000/home
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJpYXQiOjE2NTk0MjI1MjcsImV4cCI6MTY1OTQyMjU4N30.I0a9FrcVNm1ocvkJVYZOaZ8VYD8UufAqf1lOq2hmaz0
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTY1OTY3NzYxNCwiZXhwIjoxNjU5NjgxMjE0fQ.hAbFwLUgJP9W_74p8Qnz_Xv8YW_qoHdI5dRJAAdQ7mM
 
 ###
 POST http://localhost:5000/author/login
@@ -9,3 +9,7 @@ Content-Type: application/json
     "username": "vanh",
     "password": "123456"
 }
+
+###
+POST http://localhost:5000/create-student
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTY1OTY3NzYxNCwiZXhwIjoxNjU5NjgxMjE0fQ.hAbFwLUgJP9W_74p8Qnz_Xv8YW_qoHdI5dRJAAdQ7mM
