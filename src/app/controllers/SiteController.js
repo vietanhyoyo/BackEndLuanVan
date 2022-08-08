@@ -1,5 +1,5 @@
-
-const Student = require('../models/Student')
+const bcrypt = require('bcrypt-nodejs');
+const Student = require('../models/Student');
 
 const data = [
     {
@@ -22,21 +22,24 @@ class SiteController {
         res.json({ status: "Success", dataItem: data });
     }
 
-    createStudent(req, res) {
+    async createStudent(req, res) {
+
+        const newPass = await bcrypt.hashSync('123456',bcrypt.genSaltSync(5),null);
+
         const newStudent = {
-            username: 'vanh1',
-            password: '123456',
-            name: 'Hồ Duy Hưng',
-            birthday: '2013-12-09',
+            username: 'vanh',
+            password: newPass,
+            name: 'Trần Trọng Nghĩa',
+            birthday: '2010-03-09',
             phoneNumber: '0123123123',
             parent: 'Ngô Thị Đào',
             address: 'Cần Thơ',
-            idStudent: '020202',
-            healthInsurance: 'HS02022'
+            idStudent: '020204',
+            healthInsurance: 'HS09020'
         }
 
         Student.create(newStudent, function (err, student) {
-            if (err) return handleError(err);
+            if (err) res.send(err);
             res.send(student);
         });
     }

@@ -1,5 +1,5 @@
 GET http://localhost:5000/home
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTY1OTY3NzYxNCwiZXhwIjoxNjU5NjgxMjE0fQ.hAbFwLUgJP9W_74p8Qnz_Xv8YW_qoHdI5dRJAAdQ7mM
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTY1OTk2NTMzMywiZXhwIjoxNjU5OTY1OTMzfQ.mlvSIhre8sFUJjdF8Q7x5oq4Uq5RcOgpO338zpCwzp8
 
 ###
 POST http://localhost:5000/author/login
@@ -12,4 +12,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/create-student
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTY1OTY3NzYxNCwiZXhwIjoxNjU5NjgxMjE0fQ.hAbFwLUgJP9W_74p8Qnz_Xv8YW_qoHdI5dRJAAdQ7mM
+
+###
+POST http://localhost:5000/author/refresh-token
+Content-Type: application/json
+
+{
+    "token": "eyJbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTY1OTk2NTg4MywiZXhwIjoxNjYwMDUyMjgzfQ.KuYbJz9US14_CM-r5x7oDIYUoeOlkScTMu8X87QPHgs"
+}

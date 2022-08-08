@@ -11,7 +11,8 @@ const Student = new Schema({
     parent: { type: String, maxlength: 255 },
     address: { type: String, maxlength: 255 },
     idStudent: { type: String, maxlegth: 20 },
-    healthInsurance: { type: String, maxlength: 20 }
+    healthInsurance: { type: String, maxlength: 20 },
+    refreshToken: { type: String, maxlength: 255, default: null }
 }, {
     timestamps: true
 })
