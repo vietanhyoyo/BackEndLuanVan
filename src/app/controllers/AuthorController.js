@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt-nodejs');
-const Student = require('../models/Student');
+const Account = require('../models/Account');
 
 class AuthorController {
 
@@ -9,17 +9,17 @@ class AuthorController {
         const data = req.body;
         if (data.username !== undefined && data.password !== undefined) {
 
-            const student = await Student.findOne({ username: data.username });
+            const account = await Account.findOne({ username: data.username });
 
-            if (student) {
+            if (account) {
                 //Kiem tra mat khau
-                const bool = bcrypt.compareSync(data.password, student.password);
+                const bool = bcrypt.compareSync(data.password, account.password);
                 if (bool) {
-                    const accessToken = jwt.sign({ username: data.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
+                    const accessToken = jwt.sign({ username: data.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10s" });
                     const refreshToken = jwt.sign({ username: data.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "12h" });
 
-                    student.refreshToken = refreshToken;
-                    await student.save();
+                    account.refreshToken = refreshToken;
+                    await account.save();
 
                     res.send({ status: "Success", accessToken, refreshToken });
                 } else {
@@ -38,21 +38,21 @@ class AuthorController {
 
             jwt.verify(reToken, process.env.REFRESH_TOKEN_SECRET, async (err, data) => {
                 //console.log(err, data)
-                if (err) res.sendStatus(403);
+                if (err) res.sendStatus(401);
                 else {
-                    const student = await Student.findOne({ username: data.username });
-                    if (!student) res.sendStatus(403);
+                    const account = await Account.findOne({ username: data.username });
+                    if (!account) res.sendStatus(401);
                     else {
-                        if (student.refreshToken === reToken) {
+                        if (account.refreshToken === reToken) {
                             const accessToken = jwt.sign({ username: data.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
                             const refreshToken = jwt.sign({ username: data.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "24h" });
 
-                            student.refreshToken = refreshToken;
-                            await student.save();
+                            account.refreshToken = refreshToken;
+                            await account.save();
 
                             res.send({ status: "Success", accessToken, refreshToken });
                         }
-                        else res.sendStatus(403);
+                        else res.sendStatus(401);
                     }
                 }
             });
