@@ -15,13 +15,14 @@ class AuthorController {
                 //Kiem tra mat khau
                 const bool = bcrypt.compareSync(data.password, account.password);
                 if (bool) {
-                    const accessToken = jwt.sign({ username: data.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10s" });
-                    const refreshToken = jwt.sign({ username: data.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "12h" });
+                    const role = account.role;
+                    const accessToken = jwt.sign({ username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "20s" });
+                    const refreshToken = jwt.sign({ username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "12h" });
 
                     account.refreshToken = refreshToken;
                     await account.save();
 
-                    res.send({ status: "Success", accessToken, refreshToken });
+                    res.send({ status: "Success", accessToken, refreshToken, role });
                 } else {
                     res.send({ message: "Mat khau khong dung!", status: "Error" });
                 }
@@ -44,8 +45,9 @@ class AuthorController {
                     if (!account) res.sendStatus(401);
                     else {
                         if (account.refreshToken === reToken) {
-                            const accessToken = jwt.sign({ username: data.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
-                            const refreshToken = jwt.sign({ username: data.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "24h" });
+                            const role = account.role;
+                            const accessToken = jwt.sign({ username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
+                            const refreshToken = jwt.sign({ username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "24h" });
 
                             account.refreshToken = refreshToken;
                             await account.save();
