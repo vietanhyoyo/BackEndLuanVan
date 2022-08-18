@@ -16,7 +16,7 @@ class AuthorController {
                 const bool = bcrypt.compareSync(data.password, account.password);
                 if (bool) {
                     const role = account.role;
-                    const accessToken = jwt.sign({ username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "20s" });
+                    const accessToken = jwt.sign({ username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
                     const refreshToken = jwt.sign({ username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "12h" });
 
                     account.refreshToken = refreshToken;
