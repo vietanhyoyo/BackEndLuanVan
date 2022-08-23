@@ -64,7 +64,7 @@ class ClassController {
     }
 
     async getClassListByYear(req, res) {
-        if (!req.body) res.sendStatus(401);
+        if (!req.body) res.sendStatus(400);
         else {
             try {
                 const data = req.body;
@@ -100,6 +100,22 @@ class ClassController {
                 if (err) res.send({ err, status: 'Error' });
                 else res.send({ status: 'Succes', data: doc });
             });
+        }
+    }
+
+    async getClassListByNewYear(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            try {
+                const schoolYear = await SchoolYear.findOne({}, {}, { sort: { createdAt: -1 } })
+                if (!schoolYear) res.sendStatus(422);
+                else {
+                    const classList = await Class.find({ schoolYear: schoolYear._id }).sort({ name: 1 });
+                    res.send(classList);
+                }
+            } catch (error) {
+                res.send(error);
+            }
         }
     }
 

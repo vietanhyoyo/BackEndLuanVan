@@ -6,6 +6,8 @@ const Class = new Schema({
     grade: { type: String, require: true },
     schoolYear: { type: Schema.Types.ObjectId, ref: 'SchoolYear', require: true },
     isDelete: { type: Boolean, default: false },
+}, {
+    timestamps: true
 })
 
 module.exports = mongoose.model('Class', Class);

@@ -8,7 +8,7 @@ class AdminController {
         if (!data || !data.username || data.username === '' ||
             !data.password || data.password === '' ||
             !data.name || data.name === '') {
-            res.sendStatus(401);
+            res.sendStatus(400);
         }
         else {
             const availableAccount = await Account.findOne({ username: data.username })
@@ -30,10 +30,42 @@ class AdminController {
     }
 
     getAdminAccount(req, res) {
-        Account.find({ role: 0 }, (err, doc) => {
+        Account.find({ role: 0, isDelete: false }, (err, doc) => {
             if (err) res.sendStatus(401);
             else res.send(doc);
         })
+    }
+
+    editAccount(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            const data = req.body;
+            Account.updateOne({ _id: data._id },
+                data, function (err, docs) {
+                    if (err) {
+                        res.send({ status: 'Error', message: 'Lỗi trong cập nhật dữ liệu', error: err });
+                    }
+                    else {
+                        res.send({ status: 'Success', data: docs });
+                    }
+                });
+        }
+    }
+
+    deleteAccount(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            const data = req.body;
+            Account.updateOne({ _id: data.id },
+                { isDelete: true }, function (err, docs) {
+                    if (err) {
+                        res.send({ status: 'Error', message: 'Lỗi trong cập nhật dữ liệu', error: err });
+                    }
+                    else {
+                        res.send({ status: 'Success', message: 'Cập nhật thành công!', data: docs });
+                    }
+                });
+        }
     }
 
 }

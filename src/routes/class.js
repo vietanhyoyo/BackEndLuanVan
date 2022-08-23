@@ -3,6 +3,7 @@ const route = experss.Router();
 const authenMiddleware = require('../app/middlewares/authenMiddlewares')
 const classController = require('../app/controllers/ClassController')
 
+route.get('/now-class-list', authenMiddleware, classController.getClassListByNewYear);
 route.post('/change-class', authenMiddleware, classController.changeClass);
 route.post('/delete-class', authenMiddleware, classController.deleteClass);
 route.post('/class-list-by-year', authenMiddleware, classController.getClassListByYear);
