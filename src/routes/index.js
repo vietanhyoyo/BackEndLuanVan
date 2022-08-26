@@ -3,6 +3,7 @@ const authorRouter = require("./author")
 const classRouter = require("./class")
 const adminRouter = require("./admin")
 const teacherRouter = require("./teacher")
+const studentRouter = require("./student")
 
 function route(app) {
 
@@ -10,6 +11,7 @@ function route(app) {
     app.use('/class', classRouter);
     app.use('/author', authorRouter);
     app.use('/teacher', teacherRouter);
+    app.use('/student', studentRouter);
     app.use('/', siteRouter);
 
 }

@@ -43,8 +43,8 @@ class TeacherController {
 
     async getAllTeacher(req, res) {
         const teachers = await Teacher.find({ isDelete: false })
-        .populate({ path: 'account', model: 'Account' })
-        .populate({ path: 'homeroomClass', model: 'Class' })
+            .populate({ path: 'account', model: 'Account' })
+            .populate({ path: 'homeroomClass', model: 'Class' })
         res.send(teachers);
     }
 
@@ -58,6 +58,35 @@ class TeacherController {
             } catch (error) {
                 res.send({ status: 'Error', message: 'Lỗi khi xóa!', error })
             }
+        }
+    }
+
+    getTeacherById(req, res) {
+        if (!req.body.id) res.sendStatus(400);
+        else {
+            Teacher.findById(req.body.id)
+                .populate({ path: 'account', model: 'Account' })
+                .exec((error, doc) => {
+                    if (error) res.send({ status: 'Error', message: 'Lỗi khi tìm dữ liệu', error });
+                    else res.send({ status: 'Success', data: doc });
+                })
+        }
+    }
+
+    async updateTeacher(req, res) {
+        try {
+            if (!req.body) res.sendStatus(400);
+            else {
+                const accountData = req.body.account;
+                const teacherData = req.body.teacher;
+
+                await Account.updateOne({ _id: accountData._id }, accountData);
+                await Teacher.updateOne({ _id: teacherData._id }, teacherData);
+
+                res.send({ status: 'Success', accountData, teacherData });
+            }
+        } catch (error) {
+            res.send({ status: 'Error', message: 'Lỗi trong cập nhật', error });
         }
     }
 
