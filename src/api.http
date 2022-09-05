@@ -44,3 +44,11 @@ Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbm
 {
     "id": "62fa415f8e5ff5e8c0d77e5d"
 }
+ 
+###
+POST http://localhost:5000/create-subject
+Content-Type: application/json
+
+{
+    "name": "PĐ Tiếng Việt"
+}

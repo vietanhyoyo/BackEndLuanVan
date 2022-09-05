@@ -4,6 +4,7 @@ const Student = require('../models/Student');
 const Grade = require('../models/Grade');
 const SchoolYear = require('../models/SchoolYear');
 const Class = require('../models/Class');
+const Subject = require('../models/Subject')
 
 const data = [
     {
@@ -88,6 +89,25 @@ class SiteController {
             if (err) res.send(err);
             res.send(data);
         });
+    }
+
+    createSubject(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            const input = req.body;
+            console.log(input);
+            Subject.create({ name: input.name }, (err, doc) => {
+                if (err) res.send({ status: 'Error', err });
+                else res.send({ status: 'Success', doc });
+            })
+        }
+    }
+
+    getSubjects(req, res) {
+        Subject.find({}, (err,doc) => {
+            if(err) res.send(err);
+            else res.send(doc);
+        })
     }
 }
 

@@ -3,6 +3,8 @@ const route = experss.Router();
 const authenMiddleware = require('../app/middlewares/authenMiddlewares')
 const siteController = require('../app/controllers/SiteController')
 
+route.get('/get-subjects', siteController.getSubjects)
+route.post('/create-subject', siteController.createSubject)
 route.post('/create-class', siteController.createClass)
 route.post('/create-school-year', siteController.createSchoolYear)
 route.post('/create-grade', siteController.createGrade)

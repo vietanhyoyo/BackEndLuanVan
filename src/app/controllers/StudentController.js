@@ -29,6 +29,7 @@ class StudentController {
                         parent: data.parent,
                         ethnic: data.ethnic,
                         birthday: data.birthday,
+                        homeTown: data.homeTown,
                         phoneNumber: data.phoneNumber,
                         email: data.email,
                         avatar: data.avatar
@@ -47,7 +48,7 @@ class StudentController {
             else {
                 const data = req.body;
                 let classFilter = { class: null };
-                if(data.class !== null){
+                if (data.class !== null) {
                     classFilter = { class: data.class };
                 }
 
@@ -56,6 +57,48 @@ class StudentController {
             }
         } catch (error) {
             res.send({ status: 'Error', message: 'Lỗi khi lấy dữ liệu!', error });
+        }
+    }
+
+    async deleteStudent(req, res) {
+        if (!req.body.idStudent || !req.body.idAccount) res.sendStatus(400);
+        else {
+            try {
+                await Student.deleteOne({ _id: req.body.idStudent });
+                await Account.deleteOne({ _id: req.body.idAccount });
+                res.send({ status: 'Success', message: 'Xóa thành công!' })
+            } catch (error) {
+                res.send({ status: 'Error', message: 'Lỗi khi xóa!', error })
+            }
+        }
+    }
+
+    getStudentById(req, res) {
+        if (!req.body.id) res.sendStatus(400);
+        else {
+            Student.findById(req.body.id)
+                .populate({ path: 'account', model: 'Account' })
+                .exec((error, doc) => {
+                    if (error) res.send({ status: 'Error', message: 'Lỗi khi tìm dữ liệu', error });
+                    else res.send({ status: 'Success', data: doc });
+                })
+        }
+    }
+
+    async updateStudent(req, res) {
+        try {
+            if (!req.body) res.sendStatus(400);
+            else {
+                const accountData = req.body.account;
+                const studentData = req.body.student;
+
+                await Account.updateOne({ _id: accountData._id }, accountData);
+                await Student.updateOne({ _id: studentData._id }, studentData);
+
+                res.send({ status: 'Success', accountData, studentData });
+            }
+        } catch (error) {
+            res.send({ status: 'Error', message: 'Lỗi trong cập nhật', error });
         }
     }
 

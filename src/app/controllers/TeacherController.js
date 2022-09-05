@@ -29,6 +29,8 @@ class TeacherController {
                         phone: data.phone,
                         email: data.email,
                         avatar: data.avatar,
+                        subjects: data.subjects,
+                        position: data.position,
                         socialInsurance: data.socialInsurance,
                         homeroomClass: data.homeroomClass,
                         homeroomTeacher: data.homeroomTeacher

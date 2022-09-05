@@ -13,6 +13,8 @@ const Teacher = new Schema({
     email: { type: String, maxlength: 30 },
     avatar: { type: String, maxlength: 255 },
     socialInsurance: { type: String, maxlength: 20 },
+    position: { type: String, maxlength: 75 },
+    subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
     homeroomTeacher: { type: Boolean, default: false },
     homeroomClass: { type: Schema.Types.ObjectId, ref: 'Class', default: null },
     isDelete: { type: Boolean, default: false },
