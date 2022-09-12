@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Student = new Schema({
     name: { type: String, require: true },
     account: { type: Schema.Types.ObjectId, ref: 'Account', require: true },
-    idStudent: { type: String, maxlegth: 20, unique: true },
+    idStudent: { type: String, maxlength: 20, unique: true },
     class: { type: Schema.Types.ObjectId, ref: 'Class' },
     ethnic: { type: String, maxlength: 20 },
     phoneNumber: { type: String, maxlength: 20 },

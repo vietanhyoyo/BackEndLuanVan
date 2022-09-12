@@ -92,6 +92,43 @@ class TeacherController {
         }
     }
 
+    async getTeacherBySubject(req, res) {
+        if (!req.body) {
+            res.sendStatus(400);
+        }
+        else {
+            try {
+                const subjectID = req.body.id;
+                const classID = req.body.classID;
+                const data = await Teacher
+                    .find({
+                        $or: [
+                            { 'subjects': subjectID, 'homeroomTeacher': false },
+                            { 'subjects': subjectID, 'homeroomClass': classID }
+                        ]
+                    })
+                    .populate({ path: 'account', model: 'Account' })
+                    .select('account _id');
+
+                if(!data){
+                    res.send([]);
+                }
+                else{
+                    const array = data.map(row => ({
+                        _id: row._id,
+                        acount: row.account,
+                        name: row.account.name
+                    }))
+                    
+                    res.send(array);
+                }
+
+            } catch (error) {
+                res.send(error)
+            }
+        }
+    }
+
 }
 
 module.exports = new TeacherController;

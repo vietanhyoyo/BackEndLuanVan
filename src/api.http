@@ -50,5 +50,5 @@ POST http://localhost:5000/create-subject
 Content-Type: application/json
 
 {
-    "name": "PĐ Tiếng Việt"
+    "name": "SHDC"
 }
