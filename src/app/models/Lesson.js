@@ -2,7 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Lesson = new Schema({
-    name: { type: String, maxLength: 100 },
+    title: { type: String, maxLength: 100, required: true },
+    note: { type: String, maxLength: 255 },
+    date: { type: Date },
+    week: { type: Schema.Types.ObjectId, ref: 'Week', required: true },
+    subject: { type: Schema.Types.ObjectId, ref: 'Subject', required: true },
+    teacher: { type: Schema.Types.ObjectId, ref: 'Teacher' },
+    class: { type: Schema.Types.ObjectId, ref: 'Class' },
+    grade: { type: Schema.Types.ObjectId, ref: 'Grade' },
     isDelete: { type: Boolean, default: false },
 }, {
     timestamps: true

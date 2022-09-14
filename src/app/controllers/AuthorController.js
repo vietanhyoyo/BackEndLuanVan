@@ -16,8 +16,9 @@ class AuthorController {
                 const bool = bcrypt.compareSync(data.password, account.password);
                 if (bool) {
                     const role = account.role;
-                    const accessToken = jwt.sign({ username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
-                    const refreshToken = jwt.sign({ username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "12h" });
+                    const _id = account._id;
+                    const accessToken = jwt.sign({ _id, username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
+                    const refreshToken = jwt.sign({ _id, username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "12h" });
 
                     account.refreshToken = refreshToken;
                     await account.save();
@@ -46,8 +47,9 @@ class AuthorController {
                     else {
                         if (account.refreshToken === reToken) {
                             const role = account.role;
-                            const accessToken = jwt.sign({ username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
-                            const refreshToken = jwt.sign({ username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "24h" });
+                            const _id = account._id;
+                            const accessToken = jwt.sign({ _id, username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
+                            const refreshToken = jwt.sign({ _id, username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "24h" });
 
                             account.refreshToken = refreshToken;
                             await account.save();

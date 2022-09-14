@@ -52,3 +52,15 @@ Content-Type: application/json
 {
     "name": "SHDC"
 }
+
+###
+POST http://localhost:5000/create-week-semester-one
+Content-Type: application/json
+
+{}
+
+###
+POST http://localhost:5000/create-week-semester-two
+Content-Type: application/json
+
+{}

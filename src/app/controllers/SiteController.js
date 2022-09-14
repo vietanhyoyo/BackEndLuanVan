@@ -5,6 +5,7 @@ const Grade = require('../models/Grade');
 const SchoolYear = require('../models/SchoolYear');
 const Class = require('../models/Class');
 const Subject = require('../models/Subject')
+const Week = require('../models/Week')
 
 const data = [
     {
@@ -104,10 +105,42 @@ class SiteController {
     }
 
     getSubjects(req, res) {
-        Subject.find({}, (err,doc) => {
-            if(err) res.send(err);
+        Subject.find({}, (err, doc) => {
+            if (err) res.send(err);
             else res.send(doc);
         })
+    }
+
+    //Dung 1 lan
+    async createSemesterOneWeek(req, res) {
+        try {
+            for (let i = 1; i <= 18; i++) {
+                await Week.create({
+                    name: i.toString(),
+                    semester: '1',
+                    startDate: null,
+                    endDate: null
+                })
+            }
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    //Dung 1 lan
+    async createSemesterTwoWeek(req, res) {
+        try {
+            for (let i = 1; i <= 17; i++) {
+                await Week.create({
+                    name: i.toString(),
+                    semester: '2',
+                    startDate: null,
+                    endDate: null
+                })
+            }
+        } catch (error) {
+            res.send(error);
+        }
     }
 }
 
