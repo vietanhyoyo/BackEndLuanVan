@@ -7,9 +7,9 @@ const Lesson = new Schema({
     date: { type: Date },
     week: { type: Schema.Types.ObjectId, ref: 'Week', required: true },
     subject: { type: Schema.Types.ObjectId, ref: 'Subject', required: true },
+    grade: { type: String, maxLength: 2, required: true },
     teacher: { type: Schema.Types.ObjectId, ref: 'Teacher' },
     class: { type: Schema.Types.ObjectId, ref: 'Class' },
-    grade: { type: Schema.Types.ObjectId, ref: 'Grade' },
     isDelete: { type: Boolean, default: false },
 }, {
     timestamps: true

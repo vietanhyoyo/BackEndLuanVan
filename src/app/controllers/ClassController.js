@@ -11,6 +11,14 @@ class ClassController {
 
     }
 
+    getClassById(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else Class.findById(req.body.id).exec((err, doc) => {
+            if (err) res.send(err);
+            else res.send(doc)
+        })
+    }
+
     addSchoolYear(req, res) {
         if (!req.body.name || req.body.name === '') res.sendStatus(401);
         else {
