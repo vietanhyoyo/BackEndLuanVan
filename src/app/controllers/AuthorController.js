@@ -48,7 +48,7 @@ class AuthorController {
                         if (account.refreshToken === reToken) {
                             const role = account.role;
                             const _id = account._id;
-                            const accessToken = jwt.sign({ _id, username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
+                            const accessToken = jwt.sign({ _id, username: data.username, role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "20m" });
                             const refreshToken = jwt.sign({ _id, username: data.username, role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "24h" });
 
                             account.refreshToken = refreshToken;

@@ -43,6 +43,19 @@ class LessonController {
         }
     }
 
+    async getLessonsBySubjectWeekGrade(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            const { grade, week, subject } = req.body;
+            try {
+                const data = await Lesson.find({ grade, week, subject })
+                res.send(data)
+            } catch (error) {
+                res.send(error)
+            }
+        }
+    }
+
 }
 
 module.exports = new LessonController;
