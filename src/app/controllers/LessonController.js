@@ -1,6 +1,7 @@
 const Week = require('../models/Week')
 const Lesson = require('../models/Lesson')
 const Subject = require('../models/Subject')
+const LessonContent = require('../models/LessonContent')
 
 class LessonController {
 
@@ -53,6 +54,28 @@ class LessonController {
             } catch (error) {
                 res.send(error)
             }
+        }
+    }
+
+    addLessonContent(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            const { text, lessonID } = req.body;
+            LessonContent.create({ text, lesson: lessonID }, (err, doc) => {
+                if (err) res.send({ status: 'Error', error: err, message: 'Lỗi' });
+                else res.send(doc);
+            })
+        }
+    }
+
+    getLessonContentByLesson(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            const { lessonID } = req.body;
+            LessonContent.findOne({ lesson: lessonID }, (err, doc) => {
+                if (err) res.send({ status: 'Error', error: err, message: 'Lỗi' });
+                else res.send(doc);
+            })
         }
     }
 
