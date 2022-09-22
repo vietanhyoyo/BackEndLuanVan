@@ -3,6 +3,7 @@ const route = experss.Router();
 const authenMiddleware = require('../app/middlewares/authenMiddlewares')
 const siteController = require('../app/controllers/SiteController')
 
+route.get('/get-test-request/:id/:name', siteController.getTestRequest)
 route.post('/create-week-semester-one', siteController.createSemesterOneWeek)
 route.post('/create-week-semester-two', siteController.createSemesterTwoWeek)
 route.get('/get-subjects', siteController.getSubjects)

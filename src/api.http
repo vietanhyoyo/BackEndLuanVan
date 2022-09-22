@@ -21,7 +21,7 @@ POST http://localhost:5000/author/refresh-token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZhbmgiLCJpYXQiOjE2NjAyMDgyNTIsImV4cCI6MTY2MDI1MTQ1Mn0.KTasP7H8u4AY8oRkKouvRravwUYCegaab_q8EnPk81U"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmY3YTI3OGYxNDI5YTNjYWI3YTQzMmYiLCJ1c2VybmFtZSI6InZhbmgiLCJyb2xlIjowLCJpYXQiOjE2NjM1NzI2MTYsImV4cCI6MTY2MzYxNTgxNn0.MiYLkATUbshPVr5qkN4g4uuO62yEGvRimU01m5BoYnc"
 }
 
 ###
@@ -50,7 +50,7 @@ POST http://localhost:5000/create-subject
 Content-Type: application/json
 
 {
-    "name": "SHDC"
+    "name": "Tập viết"
 }
 
 ###

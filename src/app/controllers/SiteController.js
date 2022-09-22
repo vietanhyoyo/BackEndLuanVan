@@ -142,6 +142,12 @@ class SiteController {
             res.send(error);
         }
     }
+
+    getTestRequest(req, res) {
+        console.log(req.params)
+        if(!req.params) res.sendStatus(400);
+        else res.send(req.params);
+    }
 }
 
 module.exports = new SiteController;

@@ -3,6 +3,7 @@ const route = experss.Router();
 const authenMiddleware = require('../app/middlewares/authenMiddlewares')
 const classController = require('../app/controllers/ClassController')
 
+route.get('/get-homeroom-teacher-by-class/:classID', authenMiddleware, classController.getHomeroomTeacherOfClass );
 route.post('/get-class-by-id', authenMiddleware, classController.getClassById);
 route.get('/now-class-list', authenMiddleware, classController.getClassListByNewYear);
 route.post('/change-class', authenMiddleware, classController.changeClass);

@@ -1,5 +1,7 @@
 const Grade = require('../models/Grade');
 const Subject = require('../models/Subject');
+const Teacher = require('../models/Teacher');
+const jwt = require("jsonwebtoken")
 
 class SubjectController {
 
@@ -44,6 +46,32 @@ class SubjectController {
                     res.send({ status: "Error", message: "Lỗi không đúng khối" });
                 }
             }
+        }
+    }
+
+    getSubjectsByTeacher(req, res) {
+        const authorization = req.headers['authorization'];
+        if (!authorization) res.sendStatus(401);
+        //'Beaer [token]'
+        const token = authorization.split(' ')[1];
+
+        if (!token) res.sendStatus(401);
+        else {
+            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+                // console.log(err, data)
+                if (err) res.sendStatus(403);
+                else {
+                    Teacher.findOne({ account: data._id })
+                        .populate({ path: 'subjects', model: 'Subject' })
+                        .exec((error, doc) => {
+                            if (error) res.send(error);
+                            else {
+                                console.log(doc)
+                                res.send(doc.subjects);
+                            }
+                        })
+                };
+            });
         }
     }
 

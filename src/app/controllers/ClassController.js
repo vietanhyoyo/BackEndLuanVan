@@ -1,5 +1,6 @@
 const Class = require('../models/Class');
-const SchoolYear = require('../models/SchoolYear')
+const SchoolYear = require('../models/SchoolYear');
+const Teacher = require('../models/Teacher');
 
 class ClassController {
 
@@ -124,6 +125,21 @@ class ClassController {
             } catch (error) {
                 res.send(error);
             }
+        }
+    }
+
+    getHomeroomTeacherOfClass(req, res) {
+        // console.log(req.params['classID'])
+        if (!req.params.classID) res.sendStatus(400)
+        else {
+            const classID = req.params.classID;
+            Teacher.findOne({ homeroomClass: classID }, (err, doc) => {
+                if (err) res.send(err);
+                else {
+                    console.log(doc)
+                    res.send(doc);
+                }
+            })
         }
     }
 

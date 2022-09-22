@@ -57,14 +57,25 @@ class LessonController {
         }
     }
 
-    addLessonContent(req, res) {
+    async addLessonContent(req, res) {
         if (!req.body) res.sendStatus(400);
         else {
-            const { text, lessonID } = req.body;
-            LessonContent.create({ text, lesson: lessonID }, (err, doc) => {
-                if (err) res.send({ status: 'Error', error: err, message: 'Lỗi' });
-                else res.send(doc);
-            })
+            try {
+                const { text, lessonID } = req.body;
+                const lessonContent = await LessonContent.findOne({ lesson: lessonID })
+
+                if (lessonContent) {
+                    const data = await LessonContent.updateOne({ _id: lessonContent._id }, { text, lesson: lessonID })
+                    res.send(data);
+                } else {
+                    const data = await LessonContent.create({ text, lesson: lessonID })
+                    res.send(data);
+                }
+
+            } catch (error) {
+                res.send({ status: 'Error', error, message: 'Lỗi' })
+            }
+
         }
     }
 
