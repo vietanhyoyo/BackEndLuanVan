@@ -8,7 +8,7 @@ function authenMiddleware(req, res, next) {
 
     if (!token) res.sendStatus(401);
     else{
-    
+        console.log(process.env.ACCESS_TOKEN_SECRET)
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
             // console.log(err, data)
             if (err) res.sendStatus(403);

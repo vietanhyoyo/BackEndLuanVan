@@ -66,7 +66,6 @@ class SubjectController {
                         .exec((error, doc) => {
                             if (error) res.send(error);
                             else {
-                                console.log(doc)
                                 res.send(doc.subjects);
                             }
                         })

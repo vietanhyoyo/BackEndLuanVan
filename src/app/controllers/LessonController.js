@@ -90,6 +90,37 @@ class LessonController {
         }
     }
 
+    async updateLesson(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            console.log(req.body)
+            const data = await Lesson.updateOne({ _id: req.body.lesson._id }, req.body.lesson);
+            res.send(data);
+        }
+    }
+
+    async deleteLessonById(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            try {
+                const { id } = req.body;
+                const lessonContent = await LessonContent.findOne({ lesson: id });
+                console.log(lessonContent)
+                if (lessonContent) {
+                    await LessonContent.deleteOne({ _id: lessonContent._id })
+                    const result = await Lesson.deleteOne({ _id: id });
+                    res.send(result);
+                } else {
+                    const result = await Lesson.deleteOne({ _id: id });
+                    res.send(result);
+                }
+            } catch (error) {
+                res.send(error);
+            }
+
+        }
+    }
+
 }
 
 module.exports = new LessonController;

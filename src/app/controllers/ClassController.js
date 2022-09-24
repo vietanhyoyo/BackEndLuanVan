@@ -1,6 +1,8 @@
 const Class = require('../models/Class');
 const SchoolYear = require('../models/SchoolYear');
 const Teacher = require('../models/Teacher');
+const Student = require('../models/Student');
+const jwt = require("jsonwebtoken");
 
 class ClassController {
 
@@ -140,6 +142,29 @@ class ClassController {
                     res.send(doc);
                 }
             })
+        }
+    }
+
+    getClassOfStudent(req, res) {
+        const authorization = req.headers['authorization'];
+        if (!authorization) res.sendStatus(401);
+        //'Beaer [token]'
+        const token = authorization.split(' ')[1];
+
+        if (!token) res.sendStatus(401);
+        else {
+            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+                // console.log(err, data)
+                if (err) res.sendStatus(403);
+                else {
+                    Student.findOne({ account: data._id })
+                        .select('class')
+                        .exec((error, doc) => {
+                            if (error) res.send(error);
+                            else res.send(doc);
+                        })
+                };
+            });
         }
     }
 
