@@ -47,7 +47,7 @@ class ClassContentController {
         if (!req.body) res.sendStatus(400);
         else {
             const classID = req.body.classID;
-            ClassContent.find({ class: classID }, (err, docs) => {
+            ClassContent.find({ class: classID }).sort({ date: -1 }).exec((err, docs) => {
                 if (err) res.send(err);
                 else res.send(docs)
             })
@@ -58,7 +58,6 @@ class ClassContentController {
         if (!req.body) res.sendStatus(400);
         else {
             const { id } = req.body;
-            console.log(req.body)
             ClassContent.findById(id, (err, doc) => {
                 if (err) res.send(err);
                 else res.send(doc)
@@ -70,9 +69,21 @@ class ClassContentController {
         if (!req.body) res.sendStatus(400);
         else {
             const data = req.body;
-            console.log(data)
             ClassContent.updateOne({ _id: data.content._id }, data.content, (err, doc) => {
-                if(err) res.send(err);
+                if (err) res.send(err);
+                else {
+                    res.send(doc);
+                }
+            })
+        }
+    }
+
+    deleteClassContent(req, res) {
+        if (!req.body) res.sendStatus(400);
+        else {
+            const { id } = req.body;
+            ClassContent.deleteOne({ _id: id }, (err, doc) => {
+                if (err) res.send(err);
                 else {
                     res.send(doc);
                 }

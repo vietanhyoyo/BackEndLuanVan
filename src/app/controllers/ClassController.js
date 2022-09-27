@@ -168,6 +168,62 @@ class ClassController {
         }
     }
 
+    getClassObjectOfStudent(req, res) {
+        const authorization = req.headers['authorization'];
+        if (!authorization) res.sendStatus(401);
+        //'Beaer [token]'
+        const token = authorization.split(' ')[1];
+
+        if (!token) res.sendStatus(401);
+        else {
+            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+                // console.log(err, data)
+                if (err) res.sendStatus(403);
+                else {
+                    Student.findOne({ account: data._id })
+                        .populate({ path: 'class', model: 'Class' })
+                        .exec((error, doc) => {
+                            if (error) res.send(error);
+                            else {
+                                if (doc === "") res.send(doc);
+                                else {
+                                    res.send(doc.class);
+                                }
+                            }
+                        })
+                };
+            });
+        }
+    }
+
+    getHomeroomClassByTeacher(req, res) {
+        const authorization = req.headers['authorization'];
+        if (!authorization) res.sendStatus(401);
+        //'Beaer [token]'
+        const token = authorization.split(' ')[1];
+
+        if (!token) res.sendStatus(401);
+        else {
+            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+                // console.log(err, data)
+                if (err) res.sendStatus(403);
+                else {
+                    Teacher.findOne({ account: data._id })
+                        .populate({ path: 'homeroomClass', model: 'Class' })
+                        .exec((error, doc) => {
+                            if (error) res.send(error);
+                            else {
+                                if (doc === "") res.send(doc);
+                                else {
+                                    res.send(doc.homeroomClass);
+                                }
+                            }
+                        })
+                };
+            });
+        }
+    }
+
 }
 
 module.exports = new ClassController;

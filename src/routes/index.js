@@ -9,9 +9,11 @@ const gradeRouter = require("./grade")
 const scheduleRouter = require("./schedule")
 const lessonRouter = require("./lesson")
 const classContentRouter = require("./classContent")
+const linkRouter = require("./link")
 
 function route(app) {
 
+    app.use('/link', linkRouter);
     app.use('/lesson', lessonRouter);
     app.use('/schedule', scheduleRouter);
     app.use('/admin', adminRouter);
