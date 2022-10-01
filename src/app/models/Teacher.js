@@ -6,6 +6,7 @@ const Teacher = new Schema({
     account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     ethnic: { type: String, maxLength: 20 },
     birthday: { type: Date },
+    sex: { type: String },
     identityCard: { type: String, maxLength: 50, unique: true },
     homeTown: { type: String, maxLength: 100 },
     residence: { type: String, maxLength: 100 },

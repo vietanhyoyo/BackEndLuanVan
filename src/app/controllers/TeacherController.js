@@ -40,7 +40,8 @@ class TeacherController {
                         socialInsurance: data.socialInsurance,
                         homeroomClass: data.homeroomClass,
                         homeroomTeacher: data.homeroomTeacher,
-                        classInCharge: data.classInCharge
+                        classInCharge: data.classInCharge,
+                        sex: data.sex
                     })
                     res.send({ status: 'Success', data: newTeacher, message: 'Tạo thành công giáo viên mới!' })
                 } catch (error) {
@@ -153,10 +154,12 @@ class TeacherController {
                 // console.log(err, data)
                 if (err) res.sendStatus(403);
                 else {
-                    Teacher.findOne({ account: data._id }, (error, doc) => {
-                        if (error) res.send(error);
-                        else res.send(doc);
-                    })
+                    Teacher.findOne({ account: data._id })
+                        .populate({ path: "homeroomClass", model: "Class" })
+                        .exec((error, doc) => {
+                            if (error) res.send(error);
+                            else res.send(doc);
+                        })
                 };
             });
         }
